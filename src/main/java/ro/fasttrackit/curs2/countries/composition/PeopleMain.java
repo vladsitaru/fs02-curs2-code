@@ -2,15 +2,15 @@ package ro.fasttrackit.curs2.countries.composition;
 
 import java.io.IOException;
 
-public class CountriesMain {
+public class PeopleMain {
     public static void main(String[] args) throws IOException {
-        new CountryReportGenerator(getCountryProvider())
+        new PeopleReportGenerator(getCountryProvider())
                 .generateReport("output-composition.txt");
     }
 
-    private static CountryProvider getCountryProvider() {
+    private static PeopleProvider getCountryProvider() {
         return System.currentTimeMillis() % 2 == 0
-                ? new InMemoryCountryProvider()
-                : new FileCountryProvider("src/main/resources/countries.txt");
+                ? new InMemoryPeopleProvider()
+                : new FilePeopleProvider("src/main/resources/people.txt");
     }
 }

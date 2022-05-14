@@ -8,22 +8,22 @@ import java.nio.file.Path;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FileReportGenerator extends CountryReportGenerator {
+public class FileReportGenerator extends PeopleReportGenerator {
     private final String sourceFile;
 
     @Override
-    List<Country> readCountries() {
+    List<People> readPeople() {
         try {
             return Files.lines(Path.of(sourceFile))
-                    .map(this::toCountry)
+                    .map(this::peopleList)
                     .toList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Country toCountry(String line) {
-        String[] tokens = line.split("\\|");
-        return new Country(tokens[0], tokens[1]);
+    private People peopleList(String line) {
+        String[] tokens = line.split(",");
+        return new People(tokens[0], Integer.valueOf(tokens[2]));
     }
 }

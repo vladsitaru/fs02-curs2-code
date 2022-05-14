@@ -1,7 +1,7 @@
 package ro.fasttrackit.curs2.countries.composition;
 
 import lombok.RequiredArgsConstructor;
-import ro.fasttrackit.curs2.countries.Country;
+import ro.fasttrackit.curs2.countries.People;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,23 +9,23 @@ import java.nio.file.Path;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FileCountryProvider implements CountryProvider {
+public class FilePeopleProvider implements PeopleProvider {
     private final String sourceFile;
 
     @Override
-    public List<Country> readCountries() {
+    public List<People> readPeople() {
         try {
             return Files.lines(Path.of(sourceFile))
-                    .map(this::toCountry)
+                    .map(this::toPeople)
                     .toList();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Country toCountry(String line) {
-        String[] tokens = line.split("\\|");
-        return new Country(tokens[0], tokens[1]);
+    private People toPeople(String line) {
+        String[] tokens = line.split(",");
+        return new People(tokens[0], Integer.valueOf(tokens[2]));
     }
 
 }
